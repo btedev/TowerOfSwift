@@ -12,7 +12,12 @@ class ViewController: UIViewController {
                             
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        var game = Game(diskCount: 3)
+        game.solve()
+        for s in game.log {
+            println(s)
+        }
     }
 
     override func didReceiveMemoryWarning() {

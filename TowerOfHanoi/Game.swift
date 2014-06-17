@@ -12,6 +12,7 @@ class Game : Printable {
     let board: Array<Stack>
     let isEven: Bool
     var smallestDiskStackIndex: Int
+    var log = Array<String>()
     
     init(diskCount: Int) {
         stackA = Stack(diskCount: diskCount)
@@ -21,6 +22,8 @@ class Game : Printable {
         board = [stackA, stackB, stackC]
         isEven = diskCount % 2 == 0
         smallestDiskStackIndex = 0
+        
+        log += "\(self)"
     }
     
     func ended() -> Bool {
@@ -30,6 +33,7 @@ class Game : Printable {
     func move(from: Stack, to: Stack) {
         if let disk = from.pop() {
             to.push(disk)
+            log += "\(self)"
         }
     }
     
@@ -70,13 +74,12 @@ class Game : Printable {
         var onSmallerMove = true
         
         while(!ended()) {
-            println("move: \(onSmallerMove)")
             (onSmallerMove ? moveSmallestDisk() : moveLargerDisk())
             onSmallerMove = !onSmallerMove
         }
     }
     
     var description: String {
-        return "A:\(stackA), B:\(stackB), C:\(stackC)"
+        return "A:\(stackA)|B:\(stackB)|C:\(stackC)"
     }
 }

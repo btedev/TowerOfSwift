@@ -36,7 +36,12 @@ class Stack: Equatable, Printable {
     
     var description: String {
         var s = ""
-        for i in disks { s += "\(i) " }
+        for i in disks {
+            s += "\(i)"
+            if i != peek() {
+                s += ","   
+            }
+        }
         return s
     }
 }
