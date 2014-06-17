@@ -7,23 +7,16 @@
 
 import Foundation
 
-class Game : Printable {
+class Game {
     var stackA, stackB, stackC: Stack
     let board: Array<Stack>
-    let isEven: Bool
-    var smallestDiskStackIndex: Int
     var log = Array<String>()
     
     init(diskCount: Int) {
         stackA = Stack(diskCount: diskCount)
         stackB = Stack()
         stackC = Stack()
-        
         board = [stackA, stackB, stackC]
-        isEven = diskCount % 2 == 0
-        smallestDiskStackIndex = 0
-        
-        log += "\(self)"
     }
     
     func ended() -> Bool {
@@ -33,8 +26,26 @@ class Game : Printable {
     func move(from: Stack, to: Stack) {
         if let disk = from.pop() {
             to.push(disk)
-            log += "\(self)"
+            logState()
         }
+    }
+    
+    func logState() {
+        log += "A:\(stackA)|B:\(stackB)|C:\(stackC)"
+    }
+    
+    func solve() {
+    }
+}
+
+class IterativeGame : Game {
+    let isEven: Bool
+    var smallestDiskStackIndex: Int
+    
+    init(diskCount: Int) {
+        isEven = diskCount % 2 == 0
+        smallestDiskStackIndex = 0
+        super.init(diskCount: diskCount)
     }
     
     func moveSmallestDisk() {
@@ -70,16 +81,12 @@ class Game : Printable {
         }
     }
     
-    func solve() {
+    override func solve() {
         var onSmallerMove = true
         
         while(!ended()) {
             (onSmallerMove ? moveSmallestDisk() : moveLargerDisk())
             onSmallerMove = !onSmallerMove
         }
-    }
-    
-    var description: String {
-        return "A:\(stackA)|B:\(stackB)|C:\(stackC)"
     }
 }
