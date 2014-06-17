@@ -9,23 +9,53 @@
 import XCTest
 
 class GameTests: XCTestCase {
-
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
     func testGameHasEnded() {
-        var game = Game(diskCount: 4)
-        XCTAssert(game.ended() == false, "New game should not have ended")
-        game.stacks[Peg.A] = Stack()
-        game.stacks[Peg.B] = Stack()
-        game.stacks[Peg.C] = Stack(diskCount: 4)
-        XCTAssert(game.ended() == true, "Game has ended when all disks are on Peg C")
+        var game = Game(diskCount: 3)
+        XCTAssert(game.ended() == false, "New game should not be ended")
+        game.stackA = []
+        XCTAssert(game.ended() == true, "Game has ended when stack A and B have no more disks")
     }
+    
+    func testMoveDiskBetweenStacks() {
+        var game = Game(diskCount: 3)
+        game.move(&game.stackA, to: &game.stackC)
+        XCTAssert(game.stackC.peek() == 1, "Can move a disk between stacks")
+    }
+    
+    func testSortingStacksByDiskSize() {
+        var game = Game(diskCount: 3)
+        game.stackA = [3,2]
+        game.stackC = [1]
+        game.smallestDiskStackIndex = 2
+        let sortedStacks = game.sortStacks()
+        XCTAssert(sortedStacks.smallestDiskStack == [1], "Should sort opening game state stacks (smallest)")
+        XCTAssert(sortedStacks.otherStacks == [[3,2], []], "Should sort opening game state stacks (other)")
+    }
+    
+    // Note: implementing iterative solution from http://en.wikipedia.org/wiki/Tower_of_Hanoi
+    func testMoveSmallestDiskStackWhenOdd() {
+        var game = Game(diskCount: 3)
+        game.moveSmallestDisk()
+        XCTAssert(game.stackC.peek() == 1, "Smallest piece should move to far stack on first move when odd")
+        game.moveSmallestDisk()
+        XCTAssert(game.stackB.peek() == 1, "Smallest piece should move left when odd")
+    }
+    
+    /*
+    func testMoveSmallestDiskStackWhenEven() {
+        var game = Game(diskCount: 4)
+        game.moveSmallestDisk()
+        XCTAssert(game.stackB.peek() == 1, "Smallest piece should move right when even")
+        game.moveSmallestDisk()
+        game.moveSmallestDisk()
+        XCTAssert(game.stackA.peek() == 1, "Smallest piece should move right when even")
+    }
+    
+    func testFindNonSmallStacks() {
+        var game = Game(diskCount: 3)
+        var testArr: Array = game.nonSmallStacks()
+        var targetArr: Array = [game.stackB, game.stackC]
+        XCTAssert(testArr == targetArr, "Find the two stacks that don't contain the smallest disk")
+    }
+*/
 }

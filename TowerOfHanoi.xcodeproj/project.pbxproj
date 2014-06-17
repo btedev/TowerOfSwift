@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C936C8F194C6B5E001E1C57 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C936C8E194C6B5E001E1C57 /* Stack.swift */; };
-		4C936C91194C6F5D001E1C57 /* StackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C936C90194C6F5D001E1C57 /* StackTests.swift */; };
-		4C936C92194C6F86001E1C57 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C936C8E194C6B5E001E1C57 /* Stack.swift */; };
 		4CA22D16194D14B600AF4E46 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA22D15194D14B600AF4E46 /* Game.swift */; };
 		4CA22D17194D14B600AF4E46 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA22D15194D14B600AF4E46 /* Game.swift */; };
 		4CA22D19194D321000AF4E46 /* GameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA22D18194D321000AF4E46 /* GameTests.swift */; };
@@ -30,8 +27,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4C936C8E194C6B5E001E1C57 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
-		4C936C90194C6F5D001E1C57 /* StackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackTests.swift; sourceTree = "<group>"; };
 		4CA22D15194D14B600AF4E46 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		4CA22D18194D321000AF4E46 /* GameTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTests.swift; sourceTree = "<group>"; };
 		4CFD68ED194BA38200262289 /* TowerOfHanoi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerOfHanoi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,7 +82,6 @@
 				4CFD68F2194BA38200262289 /* AppDelegate.swift */,
 				4CA22D15194D14B600AF4E46 /* Game.swift */,
 				4CFD68F6194BA38200262289 /* Main.storyboard */,
-				4C936C8E194C6B5E001E1C57 /* Stack.swift */,
 				4CFD68F4194BA38200262289 /* ViewController.swift */,
 				4CFD68F0194BA38200262289 /* Supporting Files */,
 			);
@@ -106,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				4CA22D18194D321000AF4E46 /* GameTests.swift */,
-				4C936C90194C6F5D001E1C57 /* StackTests.swift */,
 				4CFD6903194BA38200262289 /* Supporting Files */,
 			);
 			path = TowerOfHanoiTests;
@@ -220,7 +213,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CFD68F5194BA38200262289 /* ViewController.swift in Sources */,
-				4C936C8F194C6B5E001E1C57 /* Stack.swift in Sources */,
 				4CFD68F3194BA38200262289 /* AppDelegate.swift in Sources */,
 				4CA22D16194D14B600AF4E46 /* Game.swift in Sources */,
 			);
@@ -230,9 +222,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C936C91194C6F5D001E1C57 /* StackTests.swift in Sources */,
 				4CA22D17194D14B600AF4E46 /* Game.swift in Sources */,
-				4C936C92194C6F86001E1C57 /* Stack.swift in Sources */,
 				4CA22D19194D321000AF4E46 /* GameTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
