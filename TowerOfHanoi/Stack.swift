@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Stack: Equatable {
+class Stack: Equatable, Printable {
     var disks = Array<Int>()
     
     init(var diskCount: Int = 0) {
@@ -32,6 +32,12 @@ class Stack: Equatable {
     
     func peek() -> Int? {
         return (disks.count > 0 ? disks[disks.count-1] : nil)
+    }
+    
+    var description: String {
+        var s = ""
+        for i in disks { s += "\(i) " }
+        return s
     }
 }
 

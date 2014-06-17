@@ -18,18 +18,8 @@ class GameTests: XCTestCase {
     
     func testMoveDiskBetweenStacks() {
         var game = Game(diskCount: 3)
-        game.move(&game.stackA, to: &game.stackC)
+        game.move(game.stackA, to: game.stackC)
         XCTAssert(game.stackC.peek() == 1, "Can move a disk between stacks")
-    }
-    
-    func testSortingStacksByDiskSize() {
-        var game = Game(diskCount: 3)
-        game.stackA.pop()
-        game.stackC.push(1)
-        game.smallestDiskStackIndex = 2
-        let sortedStacks = game.sortStacks()
-        XCTAssert(sortedStacks.smallestDiskStack == game.stackC, "Should sort opening game state stacks (smallest)")
-        XCTAssert(sortedStacks.otherStacks == [game.stackA, game.stackB], "Should sort opening game state stacks (other)")
     }
 
     // Note: implementing iterative solution from http://en.wikipedia.org/wiki/Tower_of_Hanoi
@@ -50,12 +40,24 @@ class GameTests: XCTestCase {
         XCTAssert(game.stackA.peek() == 1, "Smallest piece should move right when even")
     }
     
-    /*
-    func testFindNonSmallStacks() {
+    func testMoveLargerDisk() {
         var game = Game(diskCount: 3)
-        var testArr: Array = game.nonSmallStacks()
-        var targetArr: Array = [game.stackB, game.stackC]
-        XCTAssert(testArr == targetArr, "Find the two stacks that don't contain the smallest disk")
+        game.moveSmallestDisk()
+        game.moveLargerDisk()
+        XCTAssert(game.stackB.peek() == 2, "Larger piece should move to empty peg")
+        
+        game.moveSmallestDisk()
+        game.moveLargerDisk()
+        //println("2nd large move A = \(game.stackA.disks)")
+        //println("2nd large move B = \(game.stackB.disks)")
+        //println("2nd large move C = \(game.stackC.disks)")
+        XCTAssert(game.stackA.peek() == nil, "A should be empty after 2nd large move")
+        XCTAssert(game.stackC.peek() == 3, "C should have largest piece after 2nd large move")
     }
-*/
+    
+    func testSolveGame() {
+        var game = Game(diskCount: 3)
+        game.solve()
+        XCTAssert(game.ended(), "Should solve game with 3 disks")
+    }
 }

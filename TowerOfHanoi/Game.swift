@@ -7,12 +7,7 @@
 
 import Foundation
 
-struct SortedStacks {
-    var smallestDiskStack: Stack
-    var otherStacks: Array<Stack>
-}
-
-class Game {
+class Game : Printable {
     var stackA, stackB, stackC: Stack
     let board: Array<Stack>
     let isEven: Bool
@@ -32,17 +27,10 @@ class Game {
         return !stackA.peek() && !stackB.peek()
     }
     
-    func move(inout from: Stack, inout to: Stack) {
+    func move(from: Stack, to: Stack) {
         if let disk = from.pop() {
             to.push(disk)
         }
-    }
-    
-    func sortStacks() -> SortedStacks {
-        var boardCopy = board.copy()
-        var smallestDiskStack = boardCopy[smallestDiskStackIndex]
-        boardCopy.removeAtIndex(smallestDiskStackIndex)
-        return SortedStacks(smallestDiskStack: smallestDiskStack, otherStacks: boardCopy)
     }
     
     func moveSmallestDisk() {
@@ -55,23 +43,40 @@ class Game {
             moveToIndex = 0
         }
         
-        move(&board[smallestDiskStackIndex], to: &board[moveToIndex])
+        move(board[smallestDiskStackIndex], to: board[moveToIndex])
         smallestDiskStackIndex = moveToIndex
     }
     
-    /*
     func moveLargerDisk() {
+        var otherStackIndexes: Int[] = [0,1,2]
+        otherStackIndexes.removeAtIndex(smallestDiskStackIndex)
+        let otherStacks = (board[otherStackIndexes[0]], board[otherStackIndexes[1]])
         
+        switch otherStacks {
+        case let (a, b) where a.peek() == nil:
+            move(b, to: a)
+        case let (a, b) where b.peek() == nil:
+            move (a, to: b)
+        case let (a, b) where a.peek() < b.peek():
+            move (a, to: b)
+        case let (a, b) where a.peek() > b.peek():
+            move(b, to: a)
+        default:
+            println("Unexpected case in moveLargerDisk()")
+        }
     }
     
-    func nonSmallStacks() -> Array<Stack> {
-        var stacks = Array<Stack>()
-        for (idx, val) in enumerate(board) {
-            if idx != smallestDiskIndex {
-                stacks += val
-            }
+    func solve() {
+        var onSmallerMove = true
+        
+        while(!ended()) {
+            println("move: \(onSmallerMove)")
+            (onSmallerMove ? moveSmallestDisk() : moveLargerDisk())
+            onSmallerMove = !onSmallerMove
         }
-        return stacks
     }
-*/
+    
+    var description: String {
+        return "A:\(stackA), B:\(stackB), C:\(stackC)"
+    }
 }
