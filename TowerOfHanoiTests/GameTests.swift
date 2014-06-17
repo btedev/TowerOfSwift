@@ -12,7 +12,7 @@ class GameTests: XCTestCase {
     func testGameHasEnded() {
         var game = Game(diskCount: 3)
         XCTAssert(game.ended() == false, "New game should not be ended")
-        game.stackA = []
+        game.stackA = Stack()
         XCTAssert(game.ended() == true, "Game has ended when stack A and B have no more disks")
     }
     
@@ -24,14 +24,14 @@ class GameTests: XCTestCase {
     
     func testSortingStacksByDiskSize() {
         var game = Game(diskCount: 3)
-        game.stackA = [3,2]
-        game.stackC = [1]
+        game.stackA.pop()
+        game.stackC.push(1)
         game.smallestDiskStackIndex = 2
         let sortedStacks = game.sortStacks()
-        XCTAssert(sortedStacks.smallestDiskStack == [1], "Should sort opening game state stacks (smallest)")
-        XCTAssert(sortedStacks.otherStacks == [[3,2], []], "Should sort opening game state stacks (other)")
+        XCTAssert(sortedStacks.smallestDiskStack == game.stackC, "Should sort opening game state stacks (smallest)")
+        XCTAssert(sortedStacks.otherStacks == [game.stackA, game.stackB], "Should sort opening game state stacks (other)")
     }
-    
+
     // Note: implementing iterative solution from http://en.wikipedia.org/wiki/Tower_of_Hanoi
     func testMoveSmallestDiskStackWhenOdd() {
         var game = Game(diskCount: 3)
@@ -41,7 +41,6 @@ class GameTests: XCTestCase {
         XCTAssert(game.stackB.peek() == 1, "Smallest piece should move left when odd")
     }
     
-    /*
     func testMoveSmallestDiskStackWhenEven() {
         var game = Game(diskCount: 4)
         game.moveSmallestDisk()
@@ -51,6 +50,7 @@ class GameTests: XCTestCase {
         XCTAssert(game.stackA.peek() == 1, "Smallest piece should move right when even")
     }
     
+    /*
     func testFindNonSmallStacks() {
         var game = Game(diskCount: 3)
         var testArr: Array = game.nonSmallStacks()

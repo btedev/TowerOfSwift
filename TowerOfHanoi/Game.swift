@@ -7,52 +7,23 @@
 
 import Foundation
 
-// Add stack functions to Array
-extension Array {
-    mutating func push(item: T) {
-        append(item)
-    }
-    
-    mutating func pop() -> T? {
-        return (count > 0 ? removeLast() : nil)
-    }
-    
-    func peek() -> T? {
-        return (count > 0 ? self[count-1] : nil)
-    }
-}
-
 struct SortedStacks {
-    var smallestDiskStack: Array<Int>
-    var otherStacks: Array<Array<Int>>
+    var smallestDiskStack: Stack
+    var otherStacks: Array<Stack>
 }
 
 class Game {
-    var stackA, stackB, stackC: Array<Int>
+    var stackA, stackB, stackC: Stack
+    let board: Array<Stack>
     let isEven: Bool
     var smallestDiskStackIndex: Int
     
-    // Note: board must be a computed (dynamic) property
-    // because arrays are pass-by-value. Otherwise, board
-    // would not reflect the current state of any member arrays
-    // after initialization.
-    var board: Array<Array<Int>> {
-        get {
-            return [stackA, stackB, stackC]
-        }
-    }
-    
     init(diskCount: Int) {
-        stackA = []
-        stackB = []
-        stackC = []
+        stackA = Stack(diskCount: diskCount)
+        stackB = Stack()
+        stackC = Stack()
         
-        // Add disks to stackA.
-        // Note: range enumeration in Swift only increments
-        for i in (0..diskCount) {
-            stackA.push(diskCount - i)
-        }
-        
+        board = [stackA, stackB, stackC]
         isEven = diskCount % 2 == 0
         smallestDiskStackIndex = 0
     }
@@ -61,16 +32,17 @@ class Game {
         return !stackA.peek() && !stackB.peek()
     }
     
-    func move(inout from: Array<Int>, inout to: Array<Int>) {
+    func move(inout from: Stack, inout to: Stack) {
         if let disk = from.pop() {
             to.push(disk)
         }
     }
     
     func sortStacks() -> SortedStacks {
-        var smallestDiskStack = board[smallestDiskStackIndex]
-        var otherStacks = board.filter{ $0 != smallestDiskStack }
-        return SortedStacks(smallestDiskStack: smallestDiskStack, otherStacks: otherStacks)
+        var boardCopy = board.copy()
+        var smallestDiskStack = boardCopy[smallestDiskStackIndex]
+        boardCopy.removeAtIndex(smallestDiskStackIndex)
+        return SortedStacks(smallestDiskStack: smallestDiskStack, otherStacks: boardCopy)
     }
     
     func moveSmallestDisk() {
