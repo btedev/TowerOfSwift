@@ -10,17 +10,14 @@ import Foundation
 class Game {
     var stackA, stackB, stackC: Stack
     let board: Array<Stack>
-    var log = Array<String>()
+    var 💾 = Array<String>() // sadly there's no log emoji
     
     init(diskCount: Int) {
         stackA = Stack(diskCount: diskCount)
         stackB = Stack()
         stackC = Stack()
         board = [stackA, stackB, stackC]
-    }
-    
-    func ended() -> Bool {
-        return !stackA.peek() && !stackB.peek()
+        logState()
     }
     
     func move(from: Stack, to: Stack) {
@@ -31,10 +28,29 @@ class Game {
     }
     
     func logState() {
-        log += "A:\(stackA)|B:\(stackB)|C:\(stackC)"
+        💾 += "A:\(stackA)|B:\(stackB)|C:\(stackC)"
     }
     
     func solve() {
+    }
+}
+
+class RecursiveGame: Game {
+    var diskCount: Int
+    
+    init(diskCount: Int) {
+        self.diskCount = diskCount
+        super.init(diskCount: diskCount)
+    }
+    
+    override func solve() {
+        move(diskCount, from: stackA, to: stackC, pivot: stackB)
+    }
+    
+    func move(n: Int, from: Stack, to: Stack, pivot: Stack) {
+        if n > 1 { move(n-1, from: from, to: pivot, pivot: to) }
+        super.move(from, to: to)
+        if n > 1 { move(n-1, from: pivot, to: to, pivot: from) }
     }
 }
 
@@ -46,6 +62,10 @@ class IterativeGame : Game {
         isEven = diskCount % 2 == 0
         smallestDiskStackIndex = 0
         super.init(diskCount: diskCount)
+    }
+    
+    func ended() -> Bool {
+        return !stackA.peek() && !stackB.peek()
     }
     
     func moveSmallestDisk() {
@@ -77,7 +97,7 @@ class IterativeGame : Game {
         case let (a, b) where a.peek() > b.peek():
             move(b, to: a)
         default:
-            println("Unexpected case in moveLargerDisk()")
+            fatalError("Unexpected case in moveLargerDisk()")
         }
     }
     
@@ -88,24 +108,5 @@ class IterativeGame : Game {
             (onSmallerMove ? moveSmallestDisk() : moveLargerDisk())
             onSmallerMove = !onSmallerMove
         }
-    }
-}
-
-class RecursiveGame: Game {
-    var diskCount: Int
-    
-    init(diskCount: Int) {
-        self.diskCount = diskCount
-        super.init(diskCount: diskCount)
-    }
-    
-    override func solve() {
-        move(diskCount, from: stackA, to: stackC, pivot: stackB)
-    }
-    
-    func move(n: Int, from: Stack, to: Stack, pivot: Stack) {
-        if n > 1 { move(n-1, from: from, to: pivot, pivot: to) }
-        super.move(from, to: to)
-        if n > 1 { move(n-1, from: pivot, to: to, pivot: from) }
     }
 }

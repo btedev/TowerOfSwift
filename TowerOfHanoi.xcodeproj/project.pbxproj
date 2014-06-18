@@ -88,8 +88,8 @@
 				4CFD68F9194BA38200262289 /* Images.xcassets */,
 				4CFD68F2194BA38200262289 /* AppDelegate.swift */,
 				4CA22D15194D14B600AF4E46 /* Game.swift */,
-				4C0AC5111950763500DD4FB6 /* Stack.swift */,
 				4CFD68F6194BA38200262289 /* Main.storyboard */,
+				4C0AC5111950763500DD4FB6 /* Stack.swift */,
 				4CFD68F4194BA38200262289 /* ViewController.swift */,
 				4CFD68F0194BA38200262289 /* Supporting Files */,
 			);
