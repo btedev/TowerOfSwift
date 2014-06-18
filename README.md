@@ -1,9 +1,20 @@
 ## Submission for [Coder Night 2014-06](http://www.meetup.com/CoderNight/events/187545552/)
 
-This is my first attempt at Swift. My solution for the [Tower of Hanoi
+This is my first Swift program. I initially implemented this solution for the [Tower of Hanoi
 puzzle](http://en.wikipedia.org/wiki/Tower_of_Hanoi)
-uses a simple iterative solution. My goal wasn't to implement an elegant
-algorithm as much as play around with Swift.
+using an iterative approach, then a recursive one. My goal was
+primarily to learn about Swift.
+
+### Building and Running
+
+Unfortunately for now, you need XCode 6 Beta to build and run the tests and
+program, which requires an iOS developer subscription. Since there may not be
+any other members who can build and test my code, I'll be glad to talk about it
+if the group wants me to.
+
+This was built using XCode 6 Beta 2. Run the tests via ⌘U, run the app via ⌘R.
+
+### Issue: Array is pass-by-value
 
 The biggest problem I ran into was getting used to Array being implemented as a
 struct instead of a class, which means it's passed by value instead of by
@@ -41,3 +52,7 @@ extension Array {
 My solution was to create a Stack class which implements an internal array,
 thus all Stack objects are passed by reference which is how most OO programmers
 are used to working with arrays.
+
+### Issue: Type safety == very picky compiler
+
+
