@@ -51,7 +51,7 @@ class IterativeGameTests: XCTestCase {
         XCTAssert(game.stackC.peek() == 3, "C should have largest piece after 2nd large move")
     }
     
-    func testSolveIterativeGame() {
+    func testSolveGame() {
         var game = IterativeGame(diskCount: 3)
         game.solve()
         XCTAssert(game.log.count == 7, "Should solve game with 3 disks in 7 moves")

@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var game = Game(diskCount: 9)
+        var game = RecursiveGame(diskCount: 9)
         game.solve()
         for s in game.log {
             println(s)

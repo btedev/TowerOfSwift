@@ -90,3 +90,22 @@ class IterativeGame : Game {
         }
     }
 }
+
+class RecursiveGame: Game {
+    var diskCount: Int
+    
+    init(diskCount: Int) {
+        self.diskCount = diskCount
+        super.init(diskCount: diskCount)
+    }
+    
+    override func solve() {
+        move(diskCount, from: stackA, to: stackC, pivot: stackB)
+    }
+    
+    func move(n: Int, from: Stack, to: Stack, pivot: Stack) {
+        if n > 1 { move(n-1, from: from, to: pivot, pivot: to) }
+        super.move(from, to: to)
+        if n > 1 { move(n-1, from: pivot, to: to, pivot: from) }
+    }
+}
