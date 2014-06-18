@@ -7,12 +7,12 @@ primarily to learn about Swift.
 
 ### Building and Running
 
-Unfortunately for now, you need XCode 6 Beta to build and run the tests and
+Unfortunately for now, you need Xcode 6 Beta to build and run the tests and
 program, which requires an iOS developer subscription. Since there may not be
 any other members who can build and test my code, I'll be glad to talk about it
 if the group wants me to.
 
-This was built using XCode 6 Beta 2. Run the tests via ⌘U, run the app via ⌘R.
+This was built using Xcode 6 Beta 2. Run the tests via ⌘U, run the app via ⌘R.
 
 ### Issue: Array is pass-by-value
 
