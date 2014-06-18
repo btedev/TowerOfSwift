@@ -7,8 +7,8 @@ primarily to learn about Swift.
 
 ### Building and Running
 
-Unfortunately for now, you need Xcode 6 Beta to build and run the tests and
-program, which requires an iOS developer subscription. Since there may not be
+Unfortunately for now, you need Xcode 6 Beta to build and run the project,
+and this requires an iOS developer subscription. Since there may not be
 any other members who can build and test my code, I'll be glad to talk about it
 if the group wants me to.
 
@@ -25,10 +25,9 @@ var stackA, stackB, stackC: Array<Int>
 var board = [stackA, stackB, stackC]
 ```
 
-The board variable receives a copy of the stackX variables. When the size of
-any of the arrays changes, the arrays referenced by board are copied. The fact
-that this doesn't happen until a mutation occurs complicates working with
-arrays even more in Swift.
+The board variable receives a copy of the stackX variables. When any of these
+arrays change, the arrays referenced by board are copied. The copy doesn't
+occur immediately for performance reasons (i.e. a lazy copy).
 
 I initially implemented stack functions by creating an extension on Array like
 this:
