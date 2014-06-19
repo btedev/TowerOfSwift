@@ -5,6 +5,8 @@ puzzle](http://en.wikipedia.org/wiki/Tower_of_Hanoi)
 using an iterative approach, then a recursive one. My goal was
 primarily to learn about Swift.
 
+![Tower of Hanoi in Swift on iPad 2](hanoi_cap.gif)
+
 ### Building and Running
 
 Unfortunately for now, you need Xcode 6 Beta to build and run the project,
@@ -48,10 +50,21 @@ extension Array {
 }
 ```
 
-My solution was to create a Stack class which implements an internal array,
+This solution caused problems when I expected "board" to reflect the current
+values of its member arrays. So instead, I created a Stack class which implements an internal array,
 thus all Stack objects are passed by reference which is how most OO programmers
-are used to working with arrays.
+are used to working with arrays. Note: when passing an array into a function, the
+compiler will raise an error if you attempt to mutate it. You can add
+"inout" before the parameter name to let the compiler know you intend to mutate
+the parameter array contents and expect the variable passed as a parameter to reflect any mutations.
 
 ### Issue: Type safety == very picky compiler
 
+In short, Float != CGFloat and Double is not compatible with Float for math
+operations. Complicating things are differences in compilation for 32-bit and
+64-bit platforms. I still don't understand all the issues but the forums
+are full of complaints regarding this. Swift is very much a work in progress so
+I expect this will be addressed in the future.
 
+Note: for this reason, the app in its current state will compile for
+iPad 2 and iPad Retina but not iPad Air.
